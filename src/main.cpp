@@ -6,7 +6,10 @@
 #include <vector>
 
 std::vector<std::tuple<int, int, int>> i2c_ports = {
-    {4, 5, 0}, {2, 3, 1},{10, 11, 1}, };
+    {4, 5, 0},
+    {2, 3, 1},
+    {10, 11, 1},
+};
 
 int main(int argc, char **argv) {
   // read arguments
@@ -74,7 +77,7 @@ int main(int argc, char **argv) {
   for (const auto &[sda, scl, bus] : i2c_ports) {
     std::cout << "Trying I2C pins: SDA=" << sda << ", SCL=" << scl
               << ", Bus=" << bus << std::endl;
-    tmx->setI2CPins(sda, scl, bus,true);
+    tmx->setI2CPins(sda, scl, bus, true);
     auto ssd1306_test =
         std::make_shared<tmx_cpp::SSD1306_module>(bus, 0x3C, 128, 64);
     tmx->module_sys->add_mod(ssd1306_test);
@@ -88,7 +91,7 @@ int main(int argc, char **argv) {
                 << ", SCL=" << scl << ", Bus=" << bus << std::endl;
     }
   }
-  if(!ssd1306) {
+  if (!ssd1306) {
     std::cout << "Failed to connect to SSD1306 on any I2C pins" << std::endl;
     return 1;
   }
@@ -97,8 +100,14 @@ int main(int argc, char **argv) {
     write_text(text, file_mode, text, *tmx, ssd1306);
 
     //   sleep 10s
+    if (time < 0) {
+      // sleep forever
+      while (true) {
+        std::this_thread::sleep_for(std::chrono::seconds(100));
+      }
+    }
     std::this_thread::sleep_for(std::chrono::seconds(time));
-  } while (file_mode);
+  } while (file_mode); // if file_mode, then keep updating screen
 }
 
 std::string find_port() {

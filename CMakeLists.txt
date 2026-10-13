@@ -35,18 +35,11 @@ find_package(Boost REQUIRED COMPONENTS system thread)
 
 add_subdirectory(libs/tmx-cpp EXCLUDE_FROM_ALL)
 include_directories(
-  include/ libs/tmx-cpp/include/ libs/tmx-cpp/libs/async_serial/include/ ${Boost_INCLUDE_DIRS})
+  include/ libs/tmx-cpp/include/ libs/tmx-cpp/libs/async_serial/include/
+  ${Boost_INCLUDE_DIRS})
 
-
-add_executable(
-  ${PROJECT_NAME}_node
-  src/main.cpp)
-
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 # Specify libraries to link a library or executable target against
-target_link_libraries(
-  ${PROJECT_NAME}_node
-  Boost::system
-  Boost::thread
-  tmx_cpp
-  ${MIRTE_EXTRA_LIBS})
+target_link_libraries(${PROJECT_NAME} Boost::system Boost::thread tmx_cpp
+                      ${MIRTE_EXTRA_LIBS})
