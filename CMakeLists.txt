@@ -26,7 +26,7 @@ if(GIT_FOUND)
     ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
 
-set(Boost_USE_STATIC_LIBS   ON)
+set(Boost_USE_STATIC_LIBS ON)
 
 find_package(Boost REQUIRED COMPONENTS system thread)
 
