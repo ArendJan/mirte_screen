@@ -25,11 +25,8 @@ if(GIT_FOUND)
     OUTPUT_VARIABLE GIT_SHA1
     ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
-# if GIT_SHA1 is empty, read it from the git_sha1.txt file, which is generated
-# in the CI build
 
-# Find catkin macros and libraries if COMPONENTS list like find_package(catkin
-# REQUIRED COMPONENTS xyz) is used, also find other catkin packages
+set(Boost_USE_STATIC_LIBS   ON)
 
 find_package(Boost REQUIRED COMPONENTS system thread)
 
