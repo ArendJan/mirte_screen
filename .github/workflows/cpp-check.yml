@@ -11,7 +11,7 @@ jobs:
     - uses: DoozyX/clang-format-lint-action@v0.18
       with:
         source: '.'
-        exclude: './mirte_telemetrix_cpp/libs/*'
+        exclude: './libs/*'
         extensions: 'c,h,cpp,hpp'
         clangFormatVersion: 18
         style: llvm
@@ -26,5 +26,5 @@ jobs:
     - run: |
         python -m pip install --upgrade pip
         pip3 install cmake-format
-        cmake-format -i mirte_telemetrix_cpp/CMakeLists.txt       
-        git --no-pager diff --exit-code -- mirte_telemetrix_cpp/CMakeLists.txt
+        cmake-format -i CMakeLists.txt       
+        git --no-pager diff --exit-code -- CMakeLists.txt
