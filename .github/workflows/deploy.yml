@@ -51,6 +51,7 @@ jobs:
           - name: Copy executable file
             run: |
               cp ./build/mirte_screen ./
+              mv ./mirte_screen ./mirte_screen_${{ matrix.arch }}
               
           # - name: install nodejs
           #   run: |
@@ -68,12 +69,11 @@ jobs:
             with:
               name: ${{ env.app_name }}_${{ matrix.arch }}
               path: |
-                mirte_screen
+                mirte_screen_${{ matrix.arch }}
           - name: Push to release
             uses: softprops/action-gh-release@v3
             if: startsWith(github.ref, 'refs/tags/')
             with:
                 files: |
-                  Telemetrix4RpiPico.uf2
-                  Telemetrix4RpiPico.elf
+                  mirte_screen_${{ matrix.arch }}
                 generate_release_notes: true
